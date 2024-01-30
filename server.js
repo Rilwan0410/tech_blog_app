@@ -6,15 +6,14 @@ const db = require("./config/db");
 //=================================================================================================================================================
 
 // Template Engine
-app.engine("handlebars", engine());
+app.engine("handlebars", engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.render("index");
 });
 //=================================================================================================================================================
-
 
 app.listen(PORT, () => {
   console.log(`listening to app on port ${PORT}`);
