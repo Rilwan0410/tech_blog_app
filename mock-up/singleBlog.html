@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../public/main.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-blue-400">
+    <header class="bg-blue-950 text-white shadow-md shadow-[rgba(0,0,0,0.4)]">
+      <nav
+        class="p-[15px] py-[10px] justify-between flex justify-between items-center"
+      >
+        <div class="text-[2.5rem] font-honk">Tech Blog</div>
+        <ul class="flex gap-[10px] text-[1.1rem] font-[500]">
+          <li>Home</li>
+          <li>Dashboard</li>
+          <li>Logout</li>
+        </ul>
+      </nav>
+    </header>
+
+    <section
+      class="all-blogs rounded-md w-[100%] mt-[40px]  items-center p-[20px] m-auto flex flex-col gap-[10px]"
+    >
+      <div
+        class="blog bg-gray-200 rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] w-[90%]"
+      >
+        <div
+          class="blog-header bg-blue-950 p-[10px] px-[20px] flex justify-between items-center"
+        >
+          <h1 class="text-white font-honk text-[2rem]">
+            Why React Is The Best
+          </h1>
+          <div class="post-info">
+            <p class="text-white font-bold">
+              Posted by
+              <span class="text-orange-300 px-[3px]">testUser123</span> on
+              01/30/2024
+            </p>
+          </div>
+        </div>
+        <p class="p-[25px] text-[1.25rem] font-bold leading-9">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. At, iusto
+          ipsum. Reiciendis facilis maiores sunt nostrum. Porro amet nemo alias
+          unde consequuntur fuga dicta vel! Quibusdam velit sint iusto itaque
+          alias, magnam dolore voluptas fuga mollitia dignissimos in molestias
+          animi cum possimus asperiores a illum error ducimus reprehenderit
+          beatae. Ipsam neque, aut distinctio obitatis nostrum veniam ipsum rem
+          dolorem impedit natus, perferendis repellat incidunt! Et quos quaerat
+          minima sapiente a nihil esse nisi?
+        </p>
+      </div>
+
+      <section
+        class="blog-post-comments mt-[30px] h-[450px]  bg-gray-400 overflow-y-scroll items-center p-[30px] flex flex-col gap-[30px] border-[2px] rounded-md border-black w-full"
+      >
+        <div
+          class="comment bg-gray-300 rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] w-[90%] "
+        >
+          <div
+            class="blog-header bg-black  rounded-t-[5px] p-[10px] px-[20px] flex justify-end gap-[15px] items-center"
+          >
+
+          <i class="fa-solid fa-comments text-[1.5rem] text-gray-200"></i>
+            <div class="post-info  ">
+              <p class="text-gray-300 font-bold  w-full">
+                Replied by
+                <span class="text-pink-400 px-[3px]">crimson_tide034</span> on
+                01/30/2024
+              </p>
+              
+            </div>
+          </div>
+          <p class="p-[25px] text-[1.25rem] font-bold leading-9">
+            This is a bold statement... Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae dignissimos eum dolorem, saepe doloribus quo consequuntur impedit aliquid at? Impedit?
+          </p>
+        </div>
+
+        <div
+          class="comment bg-gray-300 rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] w-[90%] "
+        >
+          <div
+            class="blog-header bg-black  rounded-t-[5px] p-[10px] px-[20px] flex justify-end gap-[15px] items-center"
+          >
+
+          <i class="fa-solid fa-comments text-[1.5rem] text-gray-200"></i>
+            <div class="post-info  ">
+              <p class="text-gray-300 font-bold  w-full">
+                Replied by
+                <span class="text-pink-400 px-[3px]">Draft_kings0439</span> on
+                01/30/2024
+              </p>
+              
+            </div>
+          </div>
+          <p class="p-[25px] text-[1.25rem] font-bold leading-9">
+            Soo confusing 😓
+          </p>
+        </div>
+
+        <div
+          class="comment bg-gray-300 rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] w-[90%] "
+        >
+          <div
+            class="blog-header bg-black  rounded-t-[5px] p-[10px] px-[20px] flex justify-end gap-[15px] items-center"
+          >
+
+          <i class="fa-solid fa-comments text-[1.5rem] text-gray-200"></i>
+            <div class="post-info  ">
+              <p class="text-gray-300 font-bold  w-full">
+                Replied by
+                <span class="text-pink-400 px-[3px]">jabowakees2004</span> on
+                01/30/2024
+              </p>
+              
+            </div>
+          </div>
+          <p class="p-[25px] text-[1.25rem] font-bold leading-9">
+            I like the way you think!
+          </p>
+        </div>
+
+        <div
+          class="comment bg-gray-300 rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] w-[90%] "
+        >
+          <div
+            class="blog-header bg-black  rounded-t-[5px] p-[10px] px-[20px] flex justify-end gap-[15px] items-center"
+          >
+
+          <i class="fa-solid fa-comments text-[1.5rem] text-gray-200"></i>
+            <div class="post-info  ">
+              <p class="text-gray-300 font-bold  w-full">
+                Replied by
+                <span class="text-pink-400 px-[3px]">onFire01888</span> on
+                01/30/2024
+              </p>
+              
+            </div>
+          </div>
+          <p class="p-[25px] text-[1.25rem] font-bold leading-9">
+            Soo confusing 😓
+          </p>
+        </div>
+
+        <div
+          class="comment bg-gray-300 rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] w-[90%] "
+        >
+          <div
+            class="blog-header bg-black  rounded-t-[5px] p-[10px] px-[20px] flex justify-end gap-[15px] items-center"
+          >
+
+          <i class="fa-solid fa-comments text-[1.5rem] text-gray-200"></i>
+            <div class="post-info  ">
+              <p class="text-gray-300 font-bold  w-full">
+                Replied by
+                <span class="text-pink-400 px-[3px]">jabowakees2004</span> on
+                01/30/2024
+              </p>
+              
+            </div>
+          </div>
+          <p class="p-[25px] text-[1.25rem] font-bold leading-9">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea dolor illum tempora impedit provident iure debitis cum optio facere aliquid. Cupiditate molestias vero explicabo saepe necessitatibus? Aperiam quia deserunt, doloribus accusantium consequatur id velit explicabo natus voluptate ipsum perferendis aut?
+          </p>
+        </div>
+
+
+
+      </section>
+    </section>
+  </body>
+</html>
