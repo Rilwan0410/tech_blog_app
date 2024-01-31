@@ -1,10 +1,4 @@
-<!-- 
-    - Should loop through all the blogs by every single user in the database and display them
-    - When the blog is click on, it should redirect the client to a page to that specifice blog where it allows the current user to comment on it and displays all the comments
-
- -->
-
-
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -17,21 +11,22 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-  <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="main.css" />
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-blue-400">
     <header class="bg-blue-950 text-white shadow-md shadow-[rgba(0,0,0,0.4)]">
-      <nav class="p-[15px] py-[10px] flex justify-between items-center">
-        <div class="text-[2.5rem] font-honk">Tech Blog</div>
+      <nav
+        class="p-[15px] py-[10px] justify-between flex justify-between items-center"
+      >
+        <div class="text-[2.5rem] font-honk">Your Dashboard</div>
         <ul class="flex gap-[10px] text-[1.1rem] font-[500]">
-          <li class="cursor-pointer">Home</li>
-          <li class="cursor-pointer">Dashboard</li>
-          <li class="cursor-pointer">Logout</li>
+          <li>Home</li>
+          <li>Dashboard</li>
+          <li>Logout</li>
         </ul>
       </nav>
     </header>
-
-{{{body}}}
+    {{{body}}}
   </body>
 </html>
