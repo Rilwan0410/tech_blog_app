@@ -4,8 +4,12 @@ const { engine } = require("express-handlebars");
 const PORT = process.env.PORT || 5000;
 const db = require("./config/db");
 const path = require("path");
+const BlogPost = require("./models/blogPost");
+const Comments = require("./models/comments");
+const Users = require("./models/users");
 //=================================================================================================================================================
 
+console.log(db);
 // Middleware
 app.use(express.static("public"));
 
@@ -19,6 +23,8 @@ app.get("/", (req, res) => {
 });
 //=================================================================================================================================================
 
-app.listen(PORT, () => {
-  console.log(`listening to app on port ${PORT}`);
+db.sync({ force: true }).then(() => {
+  app.listen(PORT, () => {
+    console.log(`listening to app on port ${PORT}`);
+  });
 });
