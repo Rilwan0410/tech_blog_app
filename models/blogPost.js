@@ -31,4 +31,6 @@ BlogPost.init(
   { sequelize, modelName: "blog_post", freezeTableName: false }
 );
 
+console.log(BlogPost)
+
 module.exports = BlogPost;
