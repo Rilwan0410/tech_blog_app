@@ -19,7 +19,7 @@ module.exports = [
   },
   {
     userId: 5,
-    title: "Why it's good to programming for only 2 hours a day",
+    title: "Why it's good to program for only 2 hours a day",
     content:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore beatae aut repellendus, voluptatem esse totam ad? Quos aspernatur commodi amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore beatae aut repellendus, voluptatem esse totam ad? Quos aspernatur commodi amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore beatae aut repellendus, voluptatem esse totam ad? Quos aspernatur commodi amet.",
   },

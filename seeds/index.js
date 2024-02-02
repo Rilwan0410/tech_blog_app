@@ -1,6 +1,5 @@
-const BlogPost = require("../models/blogPost");
-const Comments = require("../models/comments");
-const Users = require("../models/users");
+const { BlogPosts, Comments, Users } = require("../models");
+
 const db = require("../config/db");
 const userSeeds = require("./userSeeds.js");
 const blogPostSeeds = require("./blogPostSeeds");
@@ -15,7 +14,7 @@ async function seedData() {
   console.log(`
   -----SYNCED USERS-----
   `);
-  await BlogPost.bulkCreate(blogPostSeeds);
+  await BlogPosts.bulkCreate(blogPostSeeds);
   console.log(
     `
   -----SYNCED BLOG POSTS-----

@@ -1,1 +1,30 @@
-<h1 >Index Page</h1>
+<section
+  class="all-blogs rounded-md w-[100%] mt-[40px] h-[650px] items-center p-[20px] m-auto flex flex-col gap-[40px] overflow-y-scroll"
+>
+  {{#each blogposts}}
+    <a
+      href="/comment"
+      class="blog bg-gray-200 rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] w-[90%] hover:scale-[1.02] transition duration-300 cursor-pointer"
+    >
+      <div class="">
+        <div
+          class="blog-header bg-blue-950 p-[10px] px-[20px] flex justify-between items-center"
+        >
+          <h1 class="text-white font-honk text-[2rem]">
+            {{title}}
+          </h1>
+          <div class="post-info">
+            <p class="text-white font-bold">
+              Posted by
+              <span class="text-orange-300 px-[3px]">{{"user.username"}}</span>
+              on 01/30/2024
+            </p>
+          </div>
+        </div>
+        <p class="p-[25px] text-[1.25rem] font-bold leading-9">
+          {{content}}
+        </p>
+      </div>
+    </a>
+  {{/each}}
+</section>
