@@ -1,0 +1,56 @@
+
+    <form
+      class="blog rounded-md w-[100%] mt-[40px] items-center p-[20px] m-auto flex flex-col gap-[30px]"
+    >
+      <div
+        class="blog bg-gray-200 rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] w-[90%]"
+      >
+        <div
+          class="blog-header bg-blue-950 p-[10px] px-[20px] flex justify-between items-center"
+        >
+          <h1 class="text-white font-honk text-[2rem]">
+            {{blogPost.title}}
+          </h1>
+          <div class="post-info">
+            <p class="text-white font-bold">
+              Posted by
+              <span class="text-orange-300 px-[3px]">{{user.username}}</span> on
+              01/30/2024
+            </p>
+          </div>
+        </div>
+        <p class="p-[25px] text-[1.25rem] font-bold leading-9">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. At, iusto
+          ipsum. Reiciendis facilis maiores sunt nostrum. Porro amet nemo alias
+          unde consequuntur fuga dicta vel! Quibusdam velit sint iusto itaque
+          alias, magnam dolore voluptas fuga mollitia dignissimos in molestias
+          animi cum possimus asperiores a illum error ducimus reprehenderit
+          beatae. Ipsam neque, aut distinctio obitatis nostrum veniam ipsum rem
+          dolorem impedit natus, perferendis repellat incidunt! Et quos quaerat
+          minima sapiente a nihil esse nisi?
+        </p>
+      </div>
+
+      <div
+        class="blog bg-gray-200 rounded-md flex  gap-[20px] flex-col items-center shadow-md shadow-[rgba(0,0,0,0.4)] w-[90%]"
+      >
+        <div
+          class="blog-header w-full bg-black rounded-t-[5px] p-[10px] px-[20px] flex justify-between items-center"
+        >
+          <h1 class="text-white font-honk text-[2rem]">Comment</h1>
+        </div>
+
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          class="w-[95%] h-[250px] mt-[10px] text-[1.5rem] font-[500] p-[20px]"
+        ></textarea>
+        <button
+          class="bg-black font-honk text-[2rem] p-[10px] mb-[20px] px-[15px] w-[150px] w-[30%]  rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] hover:translate-y-[-3px] transition duration-300"
+        >
+          Submit
+        </button>
+      </div>
+    </form>

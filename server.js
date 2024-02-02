@@ -46,11 +46,35 @@ app.get("/blogs/:id", async (req, res) => {
     raw: true,
   });
 
-  const comments = await Comments.findAll({ where: { userId: commentUserId },raw:true , include:[Users]});
+  const comments = await Comments.findAll({
+    where: { userId: commentUserId },
+    raw: true,
+    include: [Users],
+  });
   // console.log(blogPost)
-  console.log(comments);
+  // console.log(comments);
   // console.log(comment)
-  return res.render("singleBlog", { blogPost, username,comments, user });
+  return res.render("singleBlog", { blogPost, username, comments, user });
+});
+
+app.get("/blogs/:id/comment", async (req, res) => {
+  const { id } = req.params;
+
+  let [blogPost] = await BlogPosts.findAll({
+    where: { id: id },
+    raw: true,
+    include: [Comments, Users],
+  });
+
+  const blogPostUser = blogPost.userId;
+
+  const [user] = await Users.findAll({
+    where: { id: blogPostUser },
+    raw: true,
+  });
+  console.log(blogPostUser);
+
+  res.render("addComment", { blogPost, user });
 });
 //=================================================================================================================================================
 
