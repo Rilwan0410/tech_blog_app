@@ -1,0 +1,64 @@
+
+    <section
+      class="all-blogs rounded-md w-[100%] mt-[40px]  items-center p-[20px] m-auto flex flex-col gap-[10px]"
+    >
+      <div
+        class="blog bg-gray-200 rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] w-[90%]"
+      >
+        <div
+          class="blog-header bg-blue-950 p-[10px] px-[20px] flex justify-between items-center"
+        >
+          <h1 class="text-white font-honk text-[2rem]">
+            {{blogPost.title}}
+          </h1>
+          <div class="post-info">
+            <p class="text-white font-bold">
+              Posted by
+              <span class="text-orange-300 px-[3px]">{{username}}</span> on
+              01/30/2024
+            </p>
+          </div>
+        </div>
+        <p class="p-[25px] text-[1.25rem] font-bold leading-9">
+   {{blogPost.content}}
+        </p>
+      </div>
+
+      <section
+        class="blog-post-comments mt-[30px] h-[450px]  bg-[rgba(0,0,0,0.2)] overflow-y-scroll items-center p-[30px] flex flex-col gap-[30px]  rounded-md border-black w-full"
+      >
+
+         {{#if comments}}
+         {{#each comments}}
+        <div
+          class="comment bg-gray-300 rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] w-[90%] "
+        >
+          <div
+            class="blog-header bg-black  rounded-t-[5px] p-[10px] px-[20px] flex justify-end gap-[15px] items-center"
+          >
+
+          <i class="fa-solid fa-comments text-[1.5rem] text-gray-200"></i>
+            <div class="post-info  ">
+              <p class="text-gray-300 font-bold  w-full">
+                Replied by
+                <span class="text-pink-400 px-[3px]">{{'user.username'}}</span> on
+                01/30/2024
+              </p>
+              
+            </div>
+          </div>
+          <p class="p-[25px] text-[1.25rem] font-bold leading-9">
+            {{content}}
+          </p>
+        </div>
+          {{/each}}
+          {{else}}
+          <p class="mt-[150px] text-[2rem] font-[400]">No Comments</p>
+          {{/if}}
+
+        
+
+
+
+      </section>
+    </section>

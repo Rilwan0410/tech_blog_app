@@ -4,10 +4,6 @@ const { engine } = require("express-handlebars");
 const PORT = process.env.PORT || 5000;
 const db = require("./config/db");
 const path = require("path");
-// const Users = require("./models/users");
-// const BlogsPosts = require("./models/blogPost");
-// const Comments = require("./models/comments");
-
 const { Users, BlogPosts, Comments } = require("./models");
 //=================================================================================================================================================
 
@@ -26,14 +22,35 @@ app.get("/", async (req, res) => {
     raw: true,
     include: [Users],
   });
-  console.log(blogposts);
-  // let titles = blogposts.map((posts) => (posts.createdAt));
+  // console.log(blogposts);
 
-  // let time = titles.split('T')
-  // console.log(time)
-// console.log(titles)
-  // console.log(new Date(titles))
   return res.render("index", { blogposts });
+});
+
+app.get("/blogs/:id", async (req, res) => {
+  const { id } = req.params;
+
+  let blogPost = await BlogPosts.findAll({
+    where: { id: id },
+    raw: true,
+    include: [Comments, Users],
+  });
+
+  blogPost = blogPost[0];
+  const username = blogPost["user.username"];
+  const comment = blogPost["comments.content"];
+  const commentUserId = blogPost["comments.userId"];
+
+  const [user] = await Users.findAll({
+    where: { id: commentUserId },
+    raw: true,
+  });
+
+  const comments = await Comments.findAll({ where: { userId: commentUserId },raw:true , include:[Users]});
+  // console.log(blogPost)
+  console.log(comments);
+  // console.log(comment)
+  return res.render("singleBlog", { blogPost, username,comments, user });
 });
 //=================================================================================================================================================
 
