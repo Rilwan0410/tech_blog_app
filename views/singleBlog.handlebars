@@ -1,6 +1,6 @@
 
     <section
-      class="all-blogs rounded-md w-[100%] mt-[40px]  items-center p-[20px] m-auto flex flex-col gap-[10px]"
+      class="all-blogs rounded-md w-[100%] mt-[40px]   items-center p-[20px] m-auto flex flex-col gap-[10px]"
     >
       <div
         class="blog bg-gray-200 rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] w-[90%]"
@@ -25,7 +25,7 @@
       </div>
 
       <section
-        class="blog-post-comments mt-[30px] h-[450px]  bg-[rgba(0,0,0,0.2)] overflow-y-scroll items-center p-[30px] flex flex-col gap-[30px]  rounded-md border-black w-full"
+        class="blog-post-comments mt-[30px] h-[450px]  relative bg-[rgba(0,0,0,0.1)]  border-[2px] overflow-y-scroll items-center p-[30px] flex flex-col gap-[30px]  rounded-md border-black w-full"
       >
 
          {{#if comments}}
@@ -58,7 +58,7 @@
 
 
     <a href='/blogs/{{blogPost.id}}/comment'
-            class="add-post bg-black h-[70px] w-[70px] grid place-items-center rounded-full fixed bottom-[70px] right-[35px] shadow-lg shadow-[rgba(0,0,0,0.4)] hover:scale-[1.08] cursor-pointer transition-all duration-300"
+            class="add-post bg-black h-[70px] w-[70px] grid place-items-center rounded-full absolute bottom-[30px] right-[10px] shadow-lg shadow-[rgba(0,0,0,0.4)] hover:scale-[1.08] cursor-pointer transition-all duration-300"
           >
             <i
               class="fa-solid fa-comment text-[1.8rem] pl-[3px] text-gray-200"

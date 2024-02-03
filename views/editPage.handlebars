@@ -1,0 +1,46 @@
+    <div
+      class="edit-form just bg-gray-200 w-[75%] m-auto h-[550px] rounded-md overflow-hidden shadow-lg shadow-[rgba(0,0,0,0.3)] mt-[90px]"
+    >
+      <div
+        class="form-header bg-blue-950 py-[10px] mb-[15px] flex justify-center"
+      >
+        <h1 class="font-honk text-[3rem]">Edit Post</h1>
+      </div>
+
+      <form action="/dashboard/edit/{{blogPost.id}}" method="POST" class="flex flex-col gap-[25px] items-center">
+        <div class="">
+          <label for="title" class="block font-honk text-[2rem]">Title</label>
+          <input
+            type="text"
+            name="title"
+            value="{{blogPost.title}}"
+            class="max-w-[100%] w-[800px] text-[1.5rem] p-[10px] rounded-sm border-[3px] border-blue-950 outline-none font-bold"
+          />
+        </div>
+
+        <div class="">
+          <label for="title" class="block font-honk text-[2rem]">Content</label>
+          <textarea
+            type="text"
+            name="content"
+            class="max-w-[100%] w-[800px] text-[1.5rem] h-[120px] p-[10px] rounded-sm border-[3px] border-blue-950 outline-none font-bold"
+          >{{blogPost.content}}</textarea>
+        </div>
+
+        <div class="form-buttons flex gap-[40px] mt-[10px]">
+          <button
+          type="submit"
+            class="bg-blue-950 font-honk text-[1.5rem] p-[10px] px-[15px] rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] hover:translate-y-[-3px] transition duration-300"
+          >
+            Update Post
+            <i class="fa-solid fa-pen text-red-500 text-[1.2rem]"></i>
+          </button>
+          <button
+            class="bg-blue-950 font-honk text-[1.5rem] p-[10px] px-[15px] flex justify-center items-center gap-[5px] rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] hover:translate-y-[-3px] transition duration-300"
+          >
+            Delete Post
+            <i class="fa-solid fa-trash text-red-500 text-[1.2rem]  flex justify-center items-center gap-[5px]"></i>
+          </button>
+        </div>
+      </form>
+    </div>

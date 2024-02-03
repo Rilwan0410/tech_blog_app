@@ -76,6 +76,49 @@ app.get("/blogs/:id/comment", async (req, res) => {
 
   res.render("addComment", { blogPost, user });
 });
+
+app.get("/:id/dashboard", async (req, res) => {
+  const { id } = req.params;
+
+  let [user] = await Users.findAll({
+    where: { id: id },
+    raw: true,
+  });
+
+  let blogPosts = await BlogPosts.findAll({ where: { userId: id }, raw: true });
+
+  // console.log(blogPosts);
+
+  console.log(user);
+  return res.render("dashboardPage", { layout: "dashboard", blogPosts, user });
+});
+
+app.get("/:id/dashboard/newpost", (req, res) => {
+  return res.render("newPost", { layout: "dashboard" });
+});
+
+app.get("/dashboard/edit/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const [blogPost] = await BlogPosts.findAll({ where: { id }, raw: true });
+  // console.log(blogPost);
+
+  return res.render("editPage", { blogPost });
+});
+
+app.post("/dashboard/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  const [blogPost] = await BlogPosts.findAll({ where: { id: id } });
+  // console.log(blogPost);
+  const [user] = await Users.findAll({
+    where: { id: blogPost.userId },
+    raw: true,
+  });
+  console.log(user);
+
+  await BlogPosts.update(req.body, { where: { id: id } });
+  return res.redirect(`/${user.id}/dashboard`);
+});
 //=================================================================================================================================================
 
 db.sync({ force: false }).then(() => {
