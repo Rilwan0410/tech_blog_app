@@ -1,0 +1,52 @@
+
+<div
+  class="edit-form just bg-gray-200 w-[75%] m-auto mt-[90px]  pb-[50px] rounded-md overflow-hidden shadow-lg shadow-[rgba(0,0,0,0.3)]"
+>
+  <div class="form-header bg-blue-950 py-[10px] mb-[25px] flex justify-center">
+
+    <h1 class="font-honk text-[3rem]">Sign Up</h1>
+  </div>
+
+  <form
+    action="/signup"
+    method="POST"
+    class="flex flex-col gap-[20px] items-center"
+  >
+    <div class="">
+      <label for="username" class="block font-honk text-[2rem]">Username</label>
+      <input
+        type="text"
+        name="username"
+        class="max-w-[100%] w-[800px] text-[1.5rem] p-[10px] rounded-sm border-[3px] border-blue-950 outline-none font-bold"
+      />
+    </div>
+
+    <div class="">
+      <label for="content" class="block font-honk text-[2rem]">Password</label>
+      <input
+        type="password"
+        name="password"
+        class="max-w-[100%] w-[800px] text-[1.5rem] p-[10px] rounded-sm border-[3px] border-blue-950 outline-none font-bold"
+      />
+    </div>
+
+    <div class="form-buttons items-center gap-[25px] flex-col flex mt-[15px]">
+        {{#each errMsgs}}
+<p class="m-0 font-bold text-[1.2rem]  text-center w-[100%] text-red-500 bg-blue-950 p-2 rounded-md">{{this}}</p>
+
+        {{/each}}
+
+
+
+      <button
+        class="bg-blue-950 font-honk text-[1.8rem] p-[10px] px-[15px] w-[150px] rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] hover:translate-y-[-3px] transition duration-300"
+      >
+        Sign Up!
+      </button>
+      <p class="font-bold text-[1.1rem] text-orange-400">
+        Already have an account?
+        <a href="" class="underline text-pink-600">Login</a>
+      </p>
+    </div>
+  </form>
+</div>

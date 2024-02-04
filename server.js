@@ -4,6 +4,7 @@ const { engine } = require("express-handlebars");
 const PORT = process.env.PORT || 5000;
 const db = require("./config/db");
 const path = require("path");
+const bcrypt = require("bcrypt");
 const { Users, BlogPosts, Comments } = require("./models");
 //=================================================================================================================================================
 
@@ -77,23 +78,25 @@ app.get("/blogs/:id/comment", async (req, res) => {
   res.render("addComment", { blogPost, user });
 });
 
-app.get("/:id/dashboard", async (req, res) => {
-  const { id } = req.params;
+app.get("/dashboard", async (req, res) => {
+  // const { id } = req.params;
 
-  let [user] = await Users.findAll({
-    where: { id: id },
-    raw: true,
-  });
+  // let [user] = await Users.findAll({
+  //   where: { id: id },
+  //   raw: true,
+  // });
 
-  let blogPosts = await BlogPosts.findAll({ where: { userId: id }, raw: true });
+  //   let blogPosts = await BlogPosts.findAll({ where: { userId: id }, raw: true });
 
   // console.log(blogPosts);
 
-  console.log(user);
-  return res.render("dashboardPage", { layout: "dashboard", blogPosts, user });
+  // console.log(user);
+  return res.render(
+    "dashboardPage" /*{ layout: "dashboard", blogPosts, user } */
+  );
 });
 
-app.get("/:id/dashboard/newpost", (req, res) => {
+app.get("/dashboard/newpost", (req, res) => {
   return res.render("newPost", { layout: "dashboard" });
 });
 
@@ -118,6 +121,41 @@ app.post("/dashboard/edit/:id", async (req, res) => {
 
   await BlogPosts.update(req.body, { where: { id: id } });
   return res.redirect(`/${user.id}/dashboard`);
+});
+
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.get("/signup", (req, res) => {
+  res.render("signup");
+});
+
+app.post("/signup", async (req, res) => {
+  let { username, password } = req.body;
+  const errMsgs = [];
+
+  if (!(password && username)) {
+    if (password.length < 1) {
+      errMsgs.push("Must create a password");
+    }
+
+    if (username.length < 1) {
+      errMsgs.push("Must create a username");
+    }
+
+    console.log(errMsgs);
+    return res.render("signup", { errMsgs });
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  password = hashedPassword;
+
+  await Users.create({
+    username,
+    password,
+  });
+  return res.redirect("/login");
 });
 //=================================================================================================================================================
 
