@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const { engine } = require("express-handlebars");
+const handlebars = require("express-handlebars");
+const { engine } = handlebars;
 const PORT = process.env.PORT || 5000;
 const db = require("./config/db");
 const path = require("path");
@@ -9,6 +10,11 @@ const { Users, BlogPosts, Comments } = require("./models");
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 //=================================================================================================================================================
+
+const hbs = handlebars.create({});
+hbs.handlebars.registerHelper("getDate", (date) => {
+  return date.toLocaleDateString();
+});
 
 // Session
 app.use(
@@ -113,10 +119,17 @@ app.get("/dashboard", async (req, res) => {
 
   let blogPosts = await BlogPosts.findAll({ where: { userId: id }, raw: true });
 
-  console.log(blogPosts);
+  // let dates = blogPosts.map((each) => {
+  //   return each.createdAt.toLocaleDateString();
+  // });
 
+  // console.log(dates);
   // console.log(user);
-  return res.render("dashboardPage", { layout: "dashboard", blogPosts, user });
+  return res.render("dashboardPage", {
+    layout: "dashboard",
+    blogPosts,
+    user,
+  });
 });
 
 app.get("/dashboard/newpost", (req, res) => {
@@ -126,6 +139,7 @@ app.get("/dashboard/newpost", (req, res) => {
 app.post("/dashboard/newpost", async (req, res) => {
   const { title, content } = req.body;
   const { user_id: id } = req.session;
+
   try {
     await BlogPosts.create({ content, title, userId: id });
     return res.redirect("/dashboard");
@@ -135,26 +149,34 @@ app.post("/dashboard/newpost", async (req, res) => {
 });
 
 app.get("/dashboard/edit/:id", async (req, res) => {
-  const { id } = req.params;
+  const { id: blogPost_id } = req.params;
+  const { user_id: id } = req.session;
 
-  const [blogPost] = await BlogPosts.findAll({ where: { id }, raw: true });
-  // console.log(blogPost);
+  const [blogPost] = await BlogPosts.findAll({
+    where: { id: blogPost_id },
+    raw: true,
+  });
 
   return res.render("editPage", { blogPost });
 });
 
 app.post("/dashboard/edit/:id", async (req, res) => {
-  const { id } = req.params;
-  const [blogPost] = await BlogPosts.findAll({ where: { id: id } });
-  // console.log(blogPost);
-  const [user] = await Users.findAll({
-    where: { id: blogPost.userId },
-    raw: true,
-  });
-  console.log(user);
+  const { id: blogPost_id } = req.params;
+  // const { user_id: id } = req.session;
+  // const { title, content } = req.body;
+  const [blogPost] = await BlogPosts.findAll({ where: { id: blogPost_id } });
+  // // console.log(blogPost);
+  // const [user] = await Users.findAll({
+  //   where: { id: blogPost.userId },
+  //   raw: true,
+  // });
+  // // console.log(user);
 
-  await BlogPosts.update(req.body, { where: { id: id } });
-  return res.redirect(`/${user.id}/dashboard`);
+  // // console.log(req.)
+console.log(blogPost_id)
+
+  await BlogPosts.update(req.body, { where: { id: blogPost_id } });
+  return res.redirect(`/dashboard`);
 });
 
 app.get("/login", (req, res) => {
