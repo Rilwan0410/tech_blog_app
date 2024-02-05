@@ -6,7 +6,22 @@ const db = require("./config/db");
 const path = require("path");
 const bcrypt = require("bcrypt");
 const { Users, BlogPosts, Comments } = require("./models");
+const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 //=================================================================================================================================================
+
+// Session
+app.use(
+  session({
+    secret: "Secret Sauce",
+    cookie: {},
+    resave: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({
+      db,
+    }),
+  })
+);
 
 // Middleware
 app.use(express.static("public"));
@@ -19,6 +34,8 @@ app.set("view engine", "handlebars");
 app.set("views", "./views");
 
 app.get("/", async (req, res) => {
+ console.log(req.session)
+
   const blogposts = await BlogPosts.findAll({
     raw: true,
     include: [Users],
@@ -29,6 +46,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/blogs/:id", async (req, res) => {
+  console.log(req.session);
   const { id } = req.params;
 
   let blogPost = await BlogPosts.findAll({
@@ -59,6 +77,7 @@ app.get("/blogs/:id", async (req, res) => {
 });
 
 app.get("/blogs/:id/comment", async (req, res) => {
+  // console.log(req.session);
   const { id } = req.params;
 
   let [blogPost] = await BlogPosts.findAll({
@@ -73,7 +92,7 @@ app.get("/blogs/:id/comment", async (req, res) => {
     where: { id: blogPostUser },
     raw: true,
   });
-  console.log(blogPostUser);
+  // console.log(blogPostUser);
 
   res.render("addComment", { blogPost, user });
 });
@@ -127,6 +146,50 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
+app.post("/login", async (req, res) => {
+  const errMessages = [];
+  const { username, password } = req.body;
+  let validPassword;
+
+  try {
+    let userData = await Users.findOne({ where: { username }, raw: true });
+    // let validPassword = bcrypt.compare(userData.password);
+
+    if (userData) {
+      validPassword = userData.password === password;
+    }
+    // console.log(userData)
+
+    if (!userData || !validPassword) {
+      if (!userData) {
+        errMessages.push("No user with that username exists");
+      }
+
+      // if (!validPassword) {
+      //   errMessages.push("No user with that password exists");
+      // }
+
+      if (userData && !validPassword) {
+        errMessages.push("Incorrect Password");
+      }
+
+      console.log(errMessages);
+      return res.render("login");
+    }
+
+    console.log(userData, validPassword);
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.username = userData.username;
+      req.session.loggedIn = true
+    });
+    res.render("login");
+  } catch (err) {
+    console.log(err);
+    res.status(404).redirect("/login");
+  }
+});
+
 app.get("/signup", (req, res) => {
   res.render("signup");
 });
@@ -157,6 +220,7 @@ app.post("/signup", async (req, res) => {
   });
   return res.redirect("/login");
 });
+
 //=================================================================================================================================================
 
 db.sync({ force: false }).then(() => {
