@@ -7,7 +7,7 @@
         <h1 class="font-honk text-[3rem]">Create New Post</h1>
       </div>
 
-      <form action="" class="flex flex-col gap-[25px] items-center">
+      <form action="/dashboard/newpost"  method="POST" class="flex flex-col gap-[25px] items-center">
         <div class="">
           <label for="title" class="block font-honk text-[2rem]">Title</label>
           <input
@@ -21,7 +21,7 @@
           <label for="title" class="block font-honk text-[2rem]">Content</label>
           <textarea
             type="text"
-            name="title"
+            name="content"
             class="max-w-[100%] w-[800px] text-[1.5rem] h-[120px] p-[10px] rounded-sm border-[3px] border-blue-950 outline-none font-bold"
           ></textarea>
         </div>

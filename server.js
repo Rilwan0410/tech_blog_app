@@ -34,7 +34,7 @@ app.set("view engine", "handlebars");
 app.set("views", "./views");
 
 app.get("/", async (req, res) => {
- console.log(req.session)
+  console.log(req.session);
 
   const blogposts = await BlogPosts.findAll({
     raw: true,
@@ -98,25 +98,40 @@ app.get("/blogs/:id/comment", async (req, res) => {
 });
 
 app.get("/dashboard", async (req, res) => {
-  // const { id } = req.params;
+  if (!req.session.loggedIn) {
+    return res.redirect("/login");
+  }
 
-  // let [user] = await Users.findAll({
-  //   where: { id: id },
-  //   raw: true,
-  // });
+  console.log(req.session);
 
-  //   let blogPosts = await BlogPosts.findAll({ where: { userId: id }, raw: true });
+  const { user_id: id } = req.session;
 
-  // console.log(blogPosts);
+  let [user] = await Users.findAll({
+    where: { id: id },
+    raw: true,
+  });
+
+  let blogPosts = await BlogPosts.findAll({ where: { userId: id }, raw: true });
+
+  console.log(blogPosts);
 
   // console.log(user);
-  return res.render(
-    "dashboardPage" /*{ layout: "dashboard", blogPosts, user } */
-  );
+  return res.render("dashboardPage", { layout: "dashboard", blogPosts, user });
 });
 
 app.get("/dashboard/newpost", (req, res) => {
   return res.render("newPost", { layout: "dashboard" });
+});
+
+app.post("/dashboard/newpost", async (req, res) => {
+  const { title, content } = req.body;
+  const { user_id: id } = req.session;
+  try {
+    await BlogPosts.create({ content, title, userId: id });
+    return res.redirect("/dashboard");
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.get("/dashboard/edit/:id", async (req, res) => {
@@ -181,8 +196,9 @@ app.post("/login", async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.username = userData.username;
-      req.session.loggedIn = true
+      req.session.loggedIn = true;
     });
+    console.log("succesfully logged in");
     res.render("login");
   } catch (err) {
     console.log(err);
@@ -219,6 +235,11 @@ app.post("/signup", async (req, res) => {
     password,
   });
   return res.redirect("/login");
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.redirect("/login");
 });
 
 //=================================================================================================================================================
