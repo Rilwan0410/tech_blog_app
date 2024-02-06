@@ -198,7 +198,7 @@ app.get("/dashboard/edit/:id", async (req, res) => {
     where: { id: blogPost_id },
     raw: true,
   });
-  return res.render("editPage", { blogPost });
+  return res.render("editPage", { blogPost , layout:'dashboard'});
 });
 
 app.post("/dashboard/edit/:id", async (req, res) => {
