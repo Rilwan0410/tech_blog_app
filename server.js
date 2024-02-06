@@ -24,6 +24,7 @@ app.use(
     cookie: { expires: 60000, httpOnly:true, secure:true, sameSite:'none' },
     resave: false,
     saveUninitialized: true,
+    proxy:true,
     store: new SequelizeStore({
       db,
     }),
