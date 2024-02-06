@@ -1,4 +1,4 @@
-const bcrypt = require()
+
 
 module.exports = [
   {
@@ -20,5 +20,5 @@ module.exports = [
   {
     username: "guitarLover5",
     password: "password32",
-  },
+  }
 ];

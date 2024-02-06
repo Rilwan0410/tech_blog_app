@@ -7,13 +7,13 @@ module.exports = [
   },
   {
     userId: 4,
-    title: "Object-Oriented Programming For Dummies",
+    title: "Object-Oriented Programming is the Best",
     content:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore beatae aut repellendus, voluptatem esse totam ad? Quos aspernatur commodi amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore beatae aut repellendus, voluptatem esse totam ad? Quos aspernatur commodi amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore beatae aut repellendus, voluptatem esse totam ad? Quos aspernatur commodi amet.",
   },
   {
     userId: 2,
-    title: "Coding Quizes are Great for Beginners",
+    title: "Coding Tutorials are Great for Beginners",
     content:
       "Lor dolor sit amet consectetur adipisicing elit. Inventore beatae aut repellendus, voluptatem esse totam ad? Quos aspernatur commodi amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore beatae aut repellendus, voluptatem esse totam ad? Quos aspernatur commodi amet.",
   },
@@ -25,7 +25,7 @@ module.exports = [
   },
   {
     userId: 3,
-    title: "Why Java is the best programming lanugage",
+    title: "Why Javascript is the best programming lanugage",
     content:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore beatae aut repellendus, voluptatem esse totam ad? Quos aspernatur commodi amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore beatae aut repellendus, voluptatem esse totam ad? Quos aspernatur commodi amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore beatae aut repellendus, voluptatem esse totam ad? Quos aspernatur commodi amet.",
   },

@@ -8,7 +8,7 @@ Users.init(
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      allowNull: false,
+      allowNull: false, 
       primaryKey: true,
     },
     username: {
@@ -20,7 +20,7 @@ Users.init(
       allowNull: false,
     },
   },
-  { sequelize, modelName: "user", freezeTableName: false }
+  { sequelize, modelName: "user", freezeTableName: false, timestamps:false}
 );
 
 module.exports = Users;
