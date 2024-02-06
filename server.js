@@ -21,7 +21,6 @@ app.set("trust proxy", 1)
 app.use(
   session({
     secret: "Secret Sauce",
-    name: 'MyCoolWebAppCookieNameasdf',
     cookie: { expires: 60000 },
     resave: false,
     saveUninitialized: true,
@@ -215,9 +214,9 @@ app.post("/login", async (req, res) => {
   // try {
     let userData = await Users.findOne({ where: { username:username }, raw: true });
 
-    if (userData) {
-      validPassword = await bcrypt.compare(password, userData.password);
-    }
+    // if (userData) {
+    // }
+    validPassword = await bcrypt.compare(password, userData.password);
 
     if (!userData || !validPassword || username == "") {
       if (!userData) {
