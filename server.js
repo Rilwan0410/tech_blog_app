@@ -21,7 +21,7 @@ app.set("trust proxy", 1)
 app.use(
   session({
     secret: "Secret Sauce",
-    cookie: { expires: 60000 },
+    cookie: { expires: 60000, secure:true},
     resave: false,
     saveUninitialized: true,
     proxy:true,
