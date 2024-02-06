@@ -20,9 +20,8 @@ hbs.handlebars.registerHelper("getDate", (date) => {
 app.use(
   session({
     secret: "Secret Sauce",
-    cookie: { expires: 60000, secure: true },
+    cookie: { expires: 60000 },
     resave: false,
-    proxy:true,
     saveUninitialized: true,
     store: new SequelizeStore({
       db,
@@ -210,8 +209,8 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   let validPassword;
 
-  try {
-    let userData = await Users.findOne({ where: { username }, raw: true });
+  // try {
+    let userData = await Users.findOne({ where: { username:username }, raw: true });
 
     if (userData) {
       validPassword = await bcrypt.compare(password, userData.password);
@@ -245,10 +244,10 @@ app.post("/login", async (req, res) => {
     });
 
     res.render("index");
-  } catch (err) {
-    console.log(err);
-    res.status(404).redirect("/login");
-  }
+  // } catch (err) {
+  //   console.log(err);
+  //   res.status(404).redirect("/login");
+  // }
 });
 
 app.get("/signup", (req, res) => {
