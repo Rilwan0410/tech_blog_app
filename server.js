@@ -40,7 +40,10 @@ app.set("view engine", "handlebars");
 app.set("views", "./views");
 
 app.get("/", async (req, res) => {
-  console.log(req.session);
+
+
+  let sessionLive = req.session.loggedIn
+  console.log(sessionLive)
 
   const blogposts = await BlogPosts.findAll({
     raw: true,
@@ -49,7 +52,7 @@ app.get("/", async (req, res) => {
   });
   // console.log(blogposts);
 
-  return res.render("index", { blogposts });
+  return res.render("index", { blogposts, sessionLive });
 });
 
 app.get("/blogs/:id", async (req, res) => {
@@ -164,12 +167,7 @@ app.get("/dashboard", async (req, res) => {
 
   let blogPosts = await BlogPosts.findAll({ where: { userId: id }, raw: true });
 
-  // let dates = blogPosts.map((each) => {
-  //   return each.createdAt.toLocaleDateString();
-  // });
 
-  // console.log(dates);
-  // console.log(user);
   return res.render("dashboardPage", {
     layout: "dashboard",
     blogPosts,

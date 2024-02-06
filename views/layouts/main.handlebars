@@ -20,7 +20,9 @@
         <ul class="flex gap-[15px] text-[1.1rem] font-[500]">
           <a href="/"><li class="cursor-pointer">Home</li></a>
           <a href="/dashboard"><li class="cursor-pointer">Dashboard</li></a>
+          {{#unless sessionLive}}
           <a href="/login"><li class="cursor-pointer">Log In</li></a>
+          {{/unless}}
          <a href="/logout"> <li class="cursor-pointer">Logout</li></a>
         </ul>
       </nav>
