@@ -20,7 +20,7 @@ hbs.handlebars.registerHelper("getDate", (date) => {
 app.use(
   session({
     secret: "Secret Sauce",
-    cookie: { expires: 60000 },
+    cookie: { expires: 60000, httpOnly:true, secure:true, sameSite:'none' },
     resave: false,
     saveUninitialized: true,
     store: new SequelizeStore({
