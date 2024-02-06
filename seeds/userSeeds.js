@@ -1,3 +1,5 @@
+const bcrypt = require()
+
 module.exports = [
   {
     username: "testUser123",

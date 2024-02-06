@@ -20,7 +20,7 @@ hbs.handlebars.registerHelper("getDate", (date) => {
 app.use(
   session({
     secret: "Secret Sauce",
-    cookie: {},
+    cookie: { expires:60000},
     resave: false,
     saveUninitialized: true,
     store: new SequelizeStore({
@@ -218,7 +218,7 @@ app.post("/login", async (req, res) => {
 
     if (!userData || !validPassword || username == "") {
       if (!userData) {
-        errMessages.push("No user with that username exists");
+        errMessages.push("Invalid username ");
       }
 
       if (userData && !validPassword) {
