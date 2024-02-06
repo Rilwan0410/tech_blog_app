@@ -217,7 +217,7 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   let validPassword;
 
-  // try {
+  try {
   let userData = await Users.findOne({
     where: { username: username },
     raw: true,
@@ -255,10 +255,9 @@ app.post("/login", async (req, res) => {
   });
 
   res.render("dashboardPage");
-  // } catch (err) {
-  //   console.log(err);
-  //   res.status(404).redirect("/login");
-  // }
+  } catch (err) {
+  res.status(404).json(err)
+  }
 });
 
 app.get("/signup", (req, res) => {
