@@ -30,7 +30,9 @@
             class="max-w-[100%] w-[800px] text-[1.5rem]  p-[10px] rounded-sm border-[3px] border-blue-950 outline-none font-bold"
           />
         </div>
-
+{{#each errMessages}}
+<p class="m-0 font-bold text-[1.2rem]  text-center w-[50%] text-red-500 bg-blue-950 p-2 rounded-md">{{this}}</p>
+{{/each}}
         <div
           class="form-buttons items-center gap-[25px] flex-col flex mt-[15px]"
         >

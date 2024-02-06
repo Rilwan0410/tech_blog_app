@@ -39,12 +39,11 @@ app.engine("handlebars", engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 
+// ROUTES //
 app.get("/", async (req, res) => {
-
-
-  let sessionLive = req.session.loggedIn
-  console.log(sessionLive)
-
+  let sessionLive = req.session.loggedIn;
+  console.log(sessionLive);
+  console.log(req.session);
   const blogposts = await BlogPosts.findAll({
     raw: true,
     include: [Users],
@@ -55,6 +54,63 @@ app.get("/", async (req, res) => {
   return res.render("index", { blogposts, sessionLive });
 });
 
+// dashboard routes
+app.get("/dashboard", async (req, res) => {
+  if (!req.session.loggedIn) {
+    return res.redirect("/login");
+  }
+
+  console.log(req.session);
+
+  const { user_id: id } = req.session;
+
+  let [user] = await Users.findAll({
+    where: { id: id },
+    raw: true,
+  });
+
+  let blogPosts = await BlogPosts.findAll({ where: { userId: id }, raw: true });
+
+  return res.render("dashboardPage", {
+    layout: "dashboard",
+    blogPosts,
+    user,
+  });
+});
+app.get("/dashboard/newpost", (req, res) => {
+  return res.render("newPost", { layout: "dashboard" });
+});
+app.post("/dashboard/newpost", async (req, res) => {
+  const { title, content } = req.body;
+  const { user_id: id } = req.session;
+
+  try {
+    await BlogPosts.create({ content, title, userId: id });
+    return res.redirect("/dashboard");
+  } catch (err) {
+    console.log(err);
+  }
+});
+app.get("/dashboard/edit/:id", async (req, res) => {
+  const { id: blogPost_id } = req.params;
+
+  const [blogPost] = await BlogPosts.findAll({
+    where: { id: blogPost_id },
+    raw: true,
+  });
+  return res.render("editPage", { blogPost, layout: "dashboard" });
+});
+app.post("/dashboard/edit/:id", async (req, res) => {
+  const { id: blogPost_id } = req.params;
+  await BlogPosts.update(req.body, { where: { id: blogPost_id } });
+  return res.redirect(`/dashboard`);
+});
+app.get("/dashboard/edit/:id/delete", (req, res) => {
+  BlogPosts.destroy({ where: { id: req.params.id } });
+  res.redirect("/dashboard");
+});
+
+// blog routes
 app.get("/blogs/:id", async (req, res) => {
   console.log(req.session);
   const { id } = req.params;
@@ -86,12 +142,29 @@ app.get("/blogs/:id", async (req, res) => {
   // console.log(comment)
   return res.render("singleBlog", { blogPost, username, comments, user });
 });
+app.get("/blogs/:id/comment", async (req, res) => {
+  if (!req.session.loggedIn) {
+    return res.redirect("/login");
+  }
+  // console.log(req.session);
+  const { id } = req.params;
 
-app.get("/dashboard/edit/:id/delete", (req, res) => {
-  BlogPosts.destroy({ where: { id: req.params.id } });
-  res.redirect("/dashboard");
+  let [blogPost] = await BlogPosts.findAll({
+    where: { id: id },
+    raw: true,
+    include: [Comments, Users],
+  });
+
+  const blogPostUser = blogPost.userId;
+
+  const [user] = await Users.findAll({
+    where: { id: blogPostUser },
+    raw: true,
+  });
+  // console.log(blogPostUser);
+
+  res.render("addComment", { blogPost, user });
 });
-
 app.post("/blogs/:id/comment", async (req, res) => {
   if (!req.session.loggedIn) {
     return res.redirect("/login");
@@ -127,86 +200,6 @@ app.post("/blogs/:id/comment", async (req, res) => {
   res.redirect(`/blogs/${id}`);
 });
 
-app.get("/blogs/:id/comment", async (req, res) => {
-  if (!req.session.loggedIn) {
-    return res.redirect("/login");
-  }
-  // console.log(req.session);
-  const { id } = req.params;
-
-  let [blogPost] = await BlogPosts.findAll({
-    where: { id: id },
-    raw: true,
-    include: [Comments, Users],
-  });
-
-  const blogPostUser = blogPost.userId;
-
-  const [user] = await Users.findAll({
-    where: { id: blogPostUser },
-    raw: true,
-  });
-  // console.log(blogPostUser);
-
-  res.render("addComment", { blogPost, user });
-});
-
-app.get("/dashboard", async (req, res) => {
-  if (!req.session.loggedIn) {
-    return res.redirect("/login");
-  }
-
-  console.log(req.session);
-
-  const { user_id: id } = req.session;
-
-  let [user] = await Users.findAll({
-    where: { id: id },
-    raw: true,
-  });
-
-  let blogPosts = await BlogPosts.findAll({ where: { userId: id }, raw: true });
-
-
-  return res.render("dashboardPage", {
-    layout: "dashboard",
-    blogPosts,
-    user,
-  });
-});
-
-app.get("/dashboard/newpost", (req, res) => {
-  return res.render("newPost", { layout: "dashboard" });
-});
-
-app.post("/dashboard/newpost", async (req, res) => {
-  const { title, content } = req.body;
-  const { user_id: id } = req.session;
-
-  try {
-    await BlogPosts.create({ content, title, userId: id });
-    return res.redirect("/dashboard");
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-app.get("/dashboard/edit/:id", async (req, res) => {
-  const { id: blogPost_id } = req.params;
-
-  const [blogPost] = await BlogPosts.findAll({
-    where: { id: blogPost_id },
-    raw: true,
-  });
-  return res.render("editPage", { blogPost , layout:'dashboard'});
-});
-
-app.post("/dashboard/edit/:id", async (req, res) => {
-  const { id: blogPost_id } = req.params;
-  await BlogPosts.update(req.body, { where: { id: blogPost_id } });
-  return res.redirect(`/dashboard`);
-});
-
 app.get("/login", (req, res) => {
   res.render("login");
 });
@@ -220,25 +213,29 @@ app.post("/login", async (req, res) => {
     let userData = await Users.findOne({ where: { username }, raw: true });
 
     if (userData) {
-      // validPassword = password === userData.password;
       validPassword = await bcrypt.compare(password, userData.password);
     }
-    // console.log(userData)
 
-    if (!userData || !validPassword) {
+    if (!userData || !validPassword || username == "") {
       if (!userData) {
         errMessages.push("No user with that username exists");
       }
 
       if (userData && !validPassword) {
-        errMessages.push("Incorrect Password");
+        errMessages.push("Invalid Password");
+      }
+
+      if (username == "") {
+        errMessages.push("Fill in username field");
+      }
+
+      if (password == "") {
+        errMessages.push("Fill in password field");
       }
 
       console.log(errMessages);
-      return res.render("login");
+      return res.render("login", { errMessages });
     }
-
-    console.log(userData, validPassword);
 
     req.session.save(() => {
       req.session.user_id = userData.id;
@@ -247,7 +244,6 @@ app.post("/login", async (req, res) => {
     });
 
     res.render("index");
-    // console.log(req.session)
   } catch (err) {
     console.log(err);
     res.status(404).redirect("/login");
