@@ -35,12 +35,14 @@
             Update Post
             <i class="fa-solid fa-pen text-red-500 text-[1.2rem]"></i>
           </button>
-          <button
+          <a href="/dashboard/edit/{{blogPost.id}}/delete">
+          <button onclick="this.disabled=true"
             class="bg-blue-950 font-honk text-[1.5rem] p-[10px] px-[15px] flex justify-center items-center gap-[5px] rounded-md shadow-md shadow-[rgba(0,0,0,0.4)] hover:translate-y-[-3px] transition duration-300"
           >
             Delete Post
             <i class="fa-solid fa-trash text-red-500 text-[1.2rem]  flex justify-center items-center gap-[5px]"></i>
           </button>
+          </a>
         </div>
       </form>
     </div>

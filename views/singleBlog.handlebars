@@ -42,7 +42,7 @@
               <p class="text-gray-300 font-bold  w-full">
                 Replied by
                 <span class="text-pink-400 px-[3px]">{{'user.username'}}</span> on
-                01/30/2024
+                {{getDate createdAt}}
               </p>
               
             </div>
@@ -58,7 +58,7 @@
 
 
     <a href='/blogs/{{blogPost.id}}/comment'
-            class="add-post bg-black h-[70px] w-[70px] grid place-items-center rounded-full absolute bottom-[30px] right-[10px] shadow-lg shadow-[rgba(0,0,0,0.4)] hover:scale-[1.08] cursor-pointer transition-all duration-300"
+            class="add-post bg-black h-[70px] w-[70px] grid place-items-center rounded-full fixed bottom-[60px] right-[35px] shadow-lg shadow-[rgba(0,0,0,0.4)] hover:scale-[1.08] cursor-pointer transition-all duration-300"
           >
             <i
               class="fa-solid fa-comment text-[1.8rem] pl-[3px] text-gray-200"

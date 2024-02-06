@@ -45,6 +45,7 @@ app.get("/", async (req, res) => {
   const blogposts = await BlogPosts.findAll({
     raw: true,
     include: [Users],
+    order: [["createdAt", "DESC"]],
   });
   // console.log(blogposts);
 
@@ -75,11 +76,17 @@ app.get("/blogs/:id", async (req, res) => {
     where: { blogPostId: id },
     raw: true,
     include: [Users],
+    order: [["createdAt", "DESC"]],
   });
   // console.log(blogPost)
   // console.log(comments);
   // console.log(comment)
   return res.render("singleBlog", { blogPost, username, comments, user });
+});
+
+app.get("/dashboard/edit/:id/delete", (req, res) => {
+  BlogPosts.destroy({ where: { id: req.params.id } });
+  res.redirect("/dashboard");
 });
 
 app.post("/blogs/:id/comment", async (req, res) => {
