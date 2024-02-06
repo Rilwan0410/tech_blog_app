@@ -17,14 +17,20 @@ hbs.handlebars.registerHelper("getDate", (date) => {
 });
 
 // Session
-app.set("trust proxy", 1)
+app.set("trust proxy", 1);
 app.use(
   session({
     secret: "Secret Sauce",
-    cookie: { expires: 60000, secure:true},
+    cookie: {
+      expires: 60000,
+      secure:
+        process.env.NODE_ENV && process.env.NODE_ENV == "production"
+          ? true
+          : false,
+    },
     resave: false,
     saveUninitialized: true,
-    proxy:true,
+    proxy: true,
     store: new SequelizeStore({
       db,
     }),
@@ -212,40 +218,43 @@ app.post("/login", async (req, res) => {
   let validPassword;
 
   // try {
-    let userData = await Users.findOne({ where: { username:username }, raw: true });
+  let userData = await Users.findOne({
+    where: { username: username },
+    raw: true,
+  });
 
-    if (userData) {
-      validPassword = await bcrypt.compare(password, userData.password);
+  if (userData) {
+    validPassword = await bcrypt.compare(password, userData.password);
+  }
+
+  if (!userData || !validPassword || username == "") {
+    if (!userData) {
+      errMessages.push("Invalid username ");
     }
 
-    if (!userData || !validPassword || username == "") {
-      if (!userData) {
-        errMessages.push("Invalid username ");
-      }
-
-      if (userData && !validPassword) {
-        errMessages.push("Invalid Password");
-      }
-
-      if (username == "") {
-        errMessages.push("Fill in username field");
-      }
-
-      if (password == "") {
-        errMessages.push("Fill in password field");
-      }
-
-      console.log(errMessages);
-      return res.render("login", { errMessages });
+    if (userData && !validPassword) {
+      errMessages.push("Invalid Password");
     }
 
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.username = userData.username;
-      req.session.loggedIn = true;
-    });
+    if (username == "") {
+      errMessages.push("Fill in username field");
+    }
 
-    res.render('dashboardPage')
+    if (password == "") {
+      errMessages.push("Fill in password field");
+    }
+
+    console.log(errMessages);
+    return res.render("login", { errMessages });
+  }
+
+  req.session.save(() => {
+    req.session.user_id = userData.id;
+    req.session.username = userData.username;
+    req.session.loggedIn = true;
+  });
+
+  res.render("dashboardPage");
   // } catch (err) {
   //   console.log(err);
   //   res.status(404).redirect("/login");
