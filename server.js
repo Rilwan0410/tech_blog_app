@@ -17,6 +17,7 @@ hbs.handlebars.registerHelper("getDate", (date) => {
 });
 
 // Session
+app.set("trust proxy", 1)
 app.use(
   session({
     secret: "Secret Sauce",
