@@ -37,7 +37,7 @@ app.use(
   })
 );
 
-// Middleware 
+// Middleware
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -97,7 +97,7 @@ app.post("/dashboard/newpost", async (req, res) => {
     return res.redirect("/dashboard");
   } catch (err) {
     console.log(err);
-    res.status(404).json(err)
+    res.status(404).json(err);
   }
 });
 app.get("/dashboard/edit/:id", async (req, res) => {
@@ -149,7 +149,13 @@ app.get("/blogs/:id", async (req, res) => {
   // console.log(blogPost)
   // console.log(comments);
   // console.log(comment)
-  return res.render("singleBlog", { blogPost, username, comments, user });
+  return res.render("singleBlog", {
+    layout: "main",
+    blogPost,
+    username,
+    comments,
+    user,
+  });
 });
 app.get("/blogs/:id/comment", async (req, res) => {
   if (!req.session.loggedIn) {
@@ -219,45 +225,44 @@ app.post("/login", async (req, res) => {
   let validPassword;
 
   try {
-  let userData = await Users.findOne({
-    where: { username: username },
-    raw: true,
-  });
+    let userData = await Users.findOne({
+      where: { username: username },
+      raw: true,
+    });
 
-  if (userData) {
-    validPassword = await bcrypt.compare(password, userData.password);
-  }
-
-  if (!userData || !validPassword || username == "") {
-    if (!userData) {
-      errMessages.push("Invalid username ");
+    if (userData) {
+      validPassword = await bcrypt.compare(password, userData.password);
     }
 
-    if (userData && !validPassword) {
-      errMessages.push("Invalid Password");
+    if (!userData || !validPassword || username == "") {
+      if (!userData) {
+        errMessages.push("Invalid username ");
+      }
+
+      if (userData && !validPassword) {
+        errMessages.push("Invalid Password");
+      }
+
+      if (username == "") {
+        errMessages.push("Fill in username field");
+      }
+
+      if (password == "") {
+        errMessages.push("Fill in password field");
+      }
+
+      console.log(errMessages);
+      return res.render("login", { errMessages });
     }
 
-    if (username == "") {
-      errMessages.push("Fill in username field");
-    }
-
-    if (password == "") {
-      errMessages.push("Fill in password field");
-    }
-
-    console.log(errMessages);
-    return res.render("login", { errMessages });
-  }
-
-  req.session.save(() => {
-    req.session.user_id = userData.id;
-    req.session.username = userData.username;
-    req.session.loggedIn = true;
-  });
-
-  res.render("dashboardPage");
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.username = userData.username;
+      req.session.loggedIn = true;
+      res.redirect("/dashboard");
+    });
   } catch (err) {
-  res.status(404).json(err)
+    res.status(404).json(err);
   }
 });
 
