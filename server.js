@@ -214,9 +214,9 @@ app.post("/login", async (req, res) => {
   // try {
     let userData = await Users.findOne({ where: { username:username }, raw: true });
 
-    // if (userData) {
-    // }
-    validPassword = await bcrypt.compare(password, userData.password);
+    if (userData) {
+      validPassword = await bcrypt.compare(password, userData.password);
+    }
 
     if (!userData || !validPassword || username == "") {
       if (!userData) {
@@ -245,7 +245,7 @@ app.post("/login", async (req, res) => {
       req.session.loggedIn = true;
     });
 
-    res.render("index");
+    res.render('dashboardPage')
   // } catch (err) {
   //   console.log(err);
   //   res.status(404).redirect("/login");
