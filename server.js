@@ -17,12 +17,12 @@ hbs.handlebars.registerHelper("getDate", (date) => {
 });
 
 // Session
-app.set('trust proxy', 1)
 app.use(
   session({
     secret: "Secret Sauce",
-    cookie: { expires:60000},
+    cookie: { expires: 60000, secure: true },
     resave: false,
+    proxy:true,
     saveUninitialized: true,
     store: new SequelizeStore({
       db,
