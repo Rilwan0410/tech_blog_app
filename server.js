@@ -22,7 +22,7 @@ app.use(
   session({
     secret: "Secret Sauce",
     name: 'MyCoolWebAppCookieNameasdf',
-    cookie: { expires: 60000, httpOnly:true, secure:true, sameSite:'none' },
+    cookie: { expires: 60000 },
     resave: false,
     saveUninitialized: true,
     proxy:true,
