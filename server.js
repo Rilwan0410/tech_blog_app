@@ -20,6 +20,7 @@ hbs.handlebars.registerHelper("getDate", (date) => {
 app.use(
   session({
     secret: "Secret Sauce",
+    name: 'MyCoolWebAppCookieNameasdf',
     cookie: { expires: 60000, httpOnly:true, secure:true, sameSite:'none' },
     resave: false,
     saveUninitialized: true,
