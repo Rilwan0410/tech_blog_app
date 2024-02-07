@@ -9,21 +9,21 @@ This is an application that simulates a blog website with the ability for a user
 ## Usage
 
 When you first open the site, you will see the home page where you will be able to read existing blog posts from other users  
-![alt text](./assets/images/homepageExample.png)
+![alt text](./assets/images/homepageExample.png)  
 
 You will also be able view comments from other users and seen which user commented on the post and the timestamp when they created it  
-![alt text](./assets/images/commentExample.png)
+![alt text](./assets/images/commentExample.png)  
 
 If you try to comment on a post or access the dashboard, you will be redirected to login, or sign up for an account if you don't have one  
-![alt text](./assets/images/loginExample.png)
+![alt text](./assets/images/loginExample.png)  
 
 Once you have signed up for an account you will be able to login with the username and password you have created and access your dashboard.  
 ![alt text](./assets/images/signupForm3.png)  
 
-![alt text](./assets/images/loginExample2.png)
+![alt text](./assets/images/loginExample2.png)  
 
 Once you log in, you will be redirected to the dashboard, where you can add blogpost and keep track of the blogpost you have created
-![alt text](./assets/images/dashboardExample.png)
+![alt text](./assets/images/dashboardExample.png)  
 
 creating a New Post 
 ![alt text](./assets/images/createNewPostExample.png)  
