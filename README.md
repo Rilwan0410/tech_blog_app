@@ -57,4 +57,4 @@ Editing your post with the option to delete
 
 Link to GitHub Repository: https://github.com/Rilwan0410/tech_blog_app  
 
-Link to Deployed Application on Heroku: https://rilwan-tech-blog-163398da0ed1.herokuapp.com/  
+Link to Deployed Application on Heroku: https://rilwan-tech-blog-950b9bce78ba.herokuapp.com/ 
